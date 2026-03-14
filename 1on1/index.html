@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>一對一栽培版資源</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #eef8ff;
+            --surface: #ffffff;
+            --ink: #153147;
+            --muted: #55758c;
+            --line: #c9deeb;
+            --brand: #58a9d6;
+            --brand-dark: #2c7faa;
+            --shadow: 0 18px 50px rgba(56, 122, 164, 0.14);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Noto Sans TC", sans-serif;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at top, rgba(88, 169, 214, 0.22), transparent 32%),
+                linear-gradient(180deg, #f8fdff 0%, var(--bg) 100%);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .page {
+            width: min(1120px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 24px 0 72px;
+        }
+
+        .hero {
+            padding: 40px 0 28px;
+        }
+
+        .hero-panel {
+            background: linear-gradient(135deg, rgba(88, 169, 214, 0.96), rgba(44, 127, 170, 0.96));
+            color: #f8fdff;
+            border-radius: 28px;
+            padding: 32px;
+            box-shadow: var(--shadow);
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(248, 253, 255, 0.18);
+            font-size: 14px;
+            letter-spacing: 0.08em;
+        }
+
+        h1 {
+            margin: 18px 0 12px;
+            font-size: clamp(2.2rem, 5vw, 4.3rem);
+            line-height: 1.06;
+        }
+
+        .hero p {
+            max-width: 720px;
+            margin: 0;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: rgba(248, 253, 255, 0.88);
+        }
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 22px;
+        }
+
+        .summary-card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 18px;
+            padding: 18px;
+        }
+
+        .summary-card strong {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 1.5rem;
+        }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: end;
+            margin: 30px 0 18px;
+        }
+
+        .section-head h2 {
+            margin: 0;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+        }
+
+        .section-head p {
+            margin: 0;
+            max-width: 560px;
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+        }
+
+        .resource-card {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            padding: 22px;
+            box-shadow: 0 10px 30px rgba(56, 122, 164, 0.08);
+        }
+
+        .resource-card h3 {
+            margin: 0 0 4px;
+            font-size: 1.35rem;
+            color: var(--brand-dark);
+        }
+
+        .resource-card p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .resource-actions {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .resource-actions > :last-child {
+            grid-column: 1 / -1;
+        }
+
+        .button {
+            border: 0;
+            border-radius: 999px;
+            padding: 12px 16px;
+            font: inherit;
+            font-weight: 700;
+            text-align: center;
+            cursor: pointer;
+            color: #fff;
+            background: var(--brand);
+        }
+
+        .button.secondary {
+            color: var(--brand-dark);
+            background: #dff2fc;
+        }
+
+        .resource-audio {
+            width: 100%;
+            margin-top: 16px;
+        }
+
+        .text-panel {
+            display: none;
+            margin-top: 16px;
+            border-top: 1px solid var(--line);
+            padding-top: 16px;
+        }
+
+        .text-panel.open {
+            display: block;
+        }
+
+        .text-content {
+            width: 100%;
+            min-height: 320px;
+            border: 0;
+            border-radius: 16px;
+            background: #f3fbff;
+        }
+
+        footer {
+            padding-top: 28px;
+            color: var(--muted);
+            font-size: 0.95rem;
+            text-align: center;
+        }
+
+        @media (max-width: 780px) {
+            .page {
+                width: min(100% - 20px, 1120px);
+                padding-bottom: 48px;
+            }
+
+            .hero-panel,
+            .resource-card {
+                border-radius: 20px;
+            }
+
+            .summary,
+            .resource-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .resource-actions > :last-child {
+                grid-column: auto;
+            }
+
+            .section-head {
+                flex-direction: column;
+                align-items: start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <header class="hero">
+            <div class="hero-panel">
+                <span class="eyebrow">一對一栽培版資源</span>
+                <h1>集中查看每課錄音與文字檔</h1>
+                <p>這個網站只保留一對一栽培版的內容。每課提供 MP3 錄音、文字檔下載，以及線上展開閱讀，方便帶領與跟進時直接使用。</p>
+                <div class="summary">
+                    <div class="summary-card">
+                        <strong>8</strong>
+                        <span>課程與分水嶺內容</span>
+                    </div>
+                    <div class="summary-card">
+                        <strong>MP3</strong>
+                        <span>每課可直接播放或下載</span>
+                    </div>
+                    <div class="summary-card">
+                        <strong>TXT</strong>
+                        <span>每課文字內容可展開查看</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section>
+                <div class="section-head">
+                    <h2>課程資源</h2>
+                    <p>包括分水嶺、第一課至第七課。點選「查看文字」可在頁面內閱讀，點選下載按鈕可取得原始檔案。</p>
+                </div>
+
+                <div class="resource-grid">
+                    <article class="resource-card">
+                        <h3>分水嶺</h3>
+                        <p>人生的好消息</p>
+                        <div class="resource-actions">
+                            <a class="button" href="分水嶺.mp3" download>下載 MP3</a>
+                            <button class="button secondary js-toggle-text" type="button">查看文字</button>
+                            <a class="button secondary js-download-text" href="00_分水嶺_人生的好消息.txt"
+                                data-download-name="00_分水嶺_人生的好消息.txt">下載文字</a>
+                        </div>
+                        <audio class="resource-audio" controls preload="none">
+                            <source src="分水嶺.mp3" type="audio/mpeg">
+                        </audio>
+                        <div class="text-panel">
+                            <iframe class="text-content" src="00_分水嶺_人生的好消息.txt" title="分水嶺文字內容"></iframe>
+                        </div>
+                    </article>
+
+                    <article class="resource-card">
+                        <h3>第一課</h3>
+                        <p>神與我</p>
+                        <div class="resource-actions">
+                            <a class="button" href="第一課.mp3" download>下載 MP3</a>
+                            <button class="button secondary js-toggle-text" type="button">查看文字</button>
+                            <a class="button secondary js-download-text" href="01_第一課_神與我.txt"
+                                data-download-name="01_第一課_神與我.txt">下載文字</a>
+                        </div>
+                        <audio class="resource-audio" controls preload="none">
+                            <source src="第一課.mp3" type="audio/mpeg">
+                        </audio>
+                        <div class="text-panel">
+                            <iframe class="text-content" src="01_第一課_神與我.txt" title="第一課文字內容"></iframe>
+                        </div>
+                    </article>
+
+                    <article class="resource-card">
+                        <h3>第二課</h3>
+                        <p>認識聖靈</p>
+                        <div class="resource-actions">
+                            <a class="button" href="第二課.mp3" download>下載 MP3</a>
+                            <button class="button secondary js-toggle-text" type="button">查看文字</button>
+                            <a class="button secondary js-download-text" href="02_第二課_認識聖靈.txt"
+                                data-download-name="02_第二課_認識聖靈.txt">下載文字</a>
+                        </div>
+                        <audio class="resource-audio" controls preload="none">
+                            <source src="第二課.mp3" type="audio/mpeg">
+                        </audio>
+                        <div class="text-panel">
+                            <iframe class="text-content" src="02_第二課_認識聖靈.txt" title="第二課文字內容"></iframe>
+                        </div>
+                    </article>
+
+                    <article class="resource-card">
+                        <h3>第三課</h3>
+                        <p>教會與我</p>
+                        <div class="resource-actions">
+                            <a class="button" href="第三課.mp3" download>下載 MP3</a>
+                            <button class="button secondary js-toggle-text" type="button">查看文字</button>
+                            <a class="button secondary js-download-text" href="03_第三課_教會與我.txt"
+                                data-download-name="03_第三課_教會與我.txt">下載文字</a>
+                        </div>
+                        <audio class="resource-audio" controls preload="none">
+                            <source src="第三課.mp3" type="audio/mpeg">
+                        </audio>
+                        <div class="text-panel">
+                            <iframe class="text-content" src="03_第三課_教會與我.txt" title="第三課文字內容"></iframe>
+                        </div>
+                    </article>
+
+                    <article class="resource-card">
+                        <h3>第四課</h3>
+                        <p>聆聽神說話</p>
+                        <div class="resource-actions">
+                            <a class="button" href="第四課.mp3" download>下載 MP3</a>
+                            <button class="button secondary js-toggle-text" type="button">查看文字</button>
+                            <a class="button secondary js-download-text" href="04_第四課_聆聽神說話.txt"
+                                data-download-name="04_第四課_聆聽神說話.txt">下載文字</a>
+                        </div>
+                        <audio class="resource-audio" controls preload="none">
+                            <source src="第四課.mp3" type="audio/mpeg">
+                        </audio>
+                        <div class="text-panel">
+                            <iframe class="text-content" src="04_第四課_聆聽神說話.txt" title="第四課文字內容"></iframe>
+                        </div>
+                    </article>
+
+                    <article class="resource-card">
+                        <h3>第五課</h3>
+                        <p>神聽我禱告</p>
+                        <div class="resource-actions">
+                            <a class="button" href="第五課.mp3" download>下載 MP3</a>
+                            <button class="button secondary js-toggle-text" type="button">查看文字</button>
+                            <a class="button secondary js-download-text" href="05_第五課_神聽我禱告.txt"
+                                data-download-name="05_第五課_神聽我禱告.txt">下載文字</a>
+                        </div>
+                        <audio class="resource-audio" controls preload="none">
+                            <source src="第五課.mp3" type="audio/mpeg">
+                        </audio>
+                        <div class="text-panel">
+                            <iframe class="text-content" src="05_第五課_神聽我禱告.txt" title="第五課文字內容"></iframe>
+                        </div>
+                    </article>
+
+                    <article class="resource-card">
+                        <h3>第六課</h3>
+                        <p>處理我的罪</p>
+                        <div class="resource-actions">
+                            <a class="button" href="第六課.mp3" download>下載 MP3</a>
+                            <button class="button secondary js-toggle-text" type="button">查看文字</button>
+                            <a class="button secondary js-download-text" href="06_第六課_處理我的罪.txt"
+                                data-download-name="06_第六課_處理我的罪.txt">下載文字</a>
+                        </div>
+                        <audio class="resource-audio" controls preload="none">
+                            <source src="第六課.mp3" type="audio/mpeg">
+                        </audio>
+                        <div class="text-panel">
+                            <iframe class="text-content" src="06_第六課_處理我的罪.txt" title="第六課文字內容"></iframe>
+                        </div>
+                    </article>
+
+                    <article class="resource-card">
+                        <h3>第七課</h3>
+                        <p>作主的門徒</p>
+                        <div class="resource-actions">
+                            <a class="button" href="第七課.mp3" download>下載 MP3</a>
+                            <button class="button secondary js-toggle-text" type="button">查看文字</button>
+                            <a class="button secondary js-download-text" href="07_第七課_作主的門徒.txt"
+                                data-download-name="07_第七課_作主的門徒.txt">下載文字</a>
+                        </div>
+                        <audio class="resource-audio" controls preload="none">
+                            <source src="第七課.mp3" type="audio/mpeg">
+                        </audio>
+                        <div class="text-panel">
+                            <iframe class="text-content" src="07_第七課_作主的門徒.txt" title="第七課文字內容"></iframe>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>一對一栽培版單頁資源網站</p>
+        </footer>
+    </div>
+
+    <script>
+        function styleTextFrame(frame) {
+            try {
+                const doc = frame.contentDocument || frame.contentWindow.document;
+                if (!doc || !doc.body) return;
+                doc.body.style.margin = "0";
+                doc.body.style.padding = "1rem";
+                doc.body.style.backgroundColor = "#f3fbff";
+                doc.body.style.color = "#153147";
+                doc.body.style.fontFamily = "'Noto Sans TC', sans-serif";
+                doc.body.style.fontSize = window.innerWidth <= 768 ? "18px" : "16px";
+                doc.body.style.lineHeight = "1.9";
+                doc.body.style.whiteSpace = "pre-wrap";
+                doc.body.style.wordBreak = "break-word";
+            } catch (error) {
+                // Ignore inaccessible frame edge cases.
+            }
+        }
+
+        document.querySelectorAll(".text-content").forEach(frame => {
+            frame.addEventListener("load", () => styleTextFrame(frame));
+        });
+
+        document.querySelectorAll(".js-toggle-text").forEach(button => {
+            button.addEventListener("click", () => {
+                const card = button.closest(".resource-card");
+                const panel = card.querySelector(".text-panel");
+                const frame = card.querySelector(".text-content");
+
+                if (panel.classList.contains("open")) {
+                    panel.classList.remove("open");
+                    button.textContent = "查看文字";
+                    return;
+                }
+
+                document.querySelectorAll(".text-panel.open").forEach(openPanel => {
+                    openPanel.classList.remove("open");
+                });
+                document.querySelectorAll(".js-toggle-text").forEach(toggle => {
+                    toggle.textContent = "查看文字";
+                });
+
+                panel.classList.add("open");
+                button.textContent = "收起文字";
+                styleTextFrame(frame);
+            });
+        });
+
+        document.querySelectorAll(".js-download-text").forEach(link => {
+            link.addEventListener("click", async event => {
+                event.preventDefault();
+
+                const card = link.closest(".resource-card");
+                const frame = card.querySelector(".text-content");
+                const filename = link.dataset.downloadName;
+                const source = link.getAttribute("href");
+                let text = "";
+
+                try {
+                    const doc = frame.contentDocument || frame.contentWindow.document;
+                    text = doc && doc.body ? doc.body.innerText : "";
+                } catch (error) {
+                    text = "";
+                }
+
+                if (!text.trim()) {
+                    try {
+                        const response = await fetch(source);
+                        if (response.ok) text = await response.text();
+                    } catch (error) {
+                        text = "";
+                    }
+                }
+
+                if (!text.trim()) {
+                    window.open(source, "_blank");
+                    return;
+                }
+
+                const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+                const url = URL.createObjectURL(blob);
+                const tempLink = document.createElement("a");
+                tempLink.href = url;
+                tempLink.download = filename;
+                document.body.appendChild(tempLink);
+                tempLink.click();
+                tempLink.remove();
+                setTimeout(() => URL.revokeObjectURL(url), 1000);
+            });
+        });
+    </script>
+</body>
+
+</html>
